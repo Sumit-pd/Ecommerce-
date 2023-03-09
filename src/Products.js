@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Products = () => {
-  return <Wrapper></Wrapper>;
+  return  <h1>this is the product page</h1>
+  
 };
 
 const Wrapper = styled.section`
