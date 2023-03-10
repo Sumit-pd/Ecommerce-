@@ -7,6 +7,7 @@ const Header = () => {
         <MainHeader>
             <NavLink to="/">
                 <img src='./images/logo.png' alt="my logo img" width= "150px"/>
+                {/* <img src='./images/logo.png'/> */}
             </NavLink>
             <Nav />
         </MainHeader>

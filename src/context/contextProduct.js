@@ -9,7 +9,10 @@ const initalState = {
   isLoading: false,
   isError: false,
   products: [], // this will contain all the product of the page
-  featureProducts: [] // this will contain the feature product only
+  featureProducts: [],// this will contain the feature product only
+  isSingleLoading: false,
+  singleProduct: {} //singel product is in the form of object
+
 }
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initalState);
@@ -24,11 +27,26 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "API_ERROR" }) // when there is an error this will be called
     }
   }
+
+  //api call for individual product
+  const getSingleProduct = async (url) => {
+    dispatch({ type: "SINGLE_LOADING" })
+    try {
+      const res = await axios.get(url);
+      const singleProduct = await res.data;
+      dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct })
+    } catch (error) {
+      dispatch({ type: "SINGLE_ERROR" });
+    }
+  }
+
+
+
   useEffect(() => {
     getProducts(API);
   }, [])
 
-  return (<Appcontext.Provider value={{ ...state }}>
+  return (<Appcontext.Provider value={{ ...state, getSingleProduct }}>
     {children}
   </Appcontext.Provider>)
 }

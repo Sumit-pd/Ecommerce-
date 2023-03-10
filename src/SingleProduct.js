@@ -1,12 +1,102 @@
 import styled from "styled-components";
+import { useParams } from "react-router-dom"
+import { useEffect } from "react";
+import { useProductContext } from "./context/contextProduct"
+import PageNavigation from "./components/PageNavigation";
+import ProductImage from "./components/ProductImage";
+import FormatPrice from "./Helpers/FormatPrice";
+import { TbTruckDelivery, TbReplace } from "react-icons/tb";
+import { MdSecurity } from "react-icons/md";
 
-
-import React from 'react'
+const url = "https://api.pujakaitem.com/api/products"
 
 const SingleProduct = () => {
+
+  const { getSingleProduct, isSingleLoading, singleProduct } = useProductContext();
+
+
+  const { id } = useParams();
+  // console.log(id);
+  // we need get the url of the same everytime the page is visited so we need to use the useEffect hook
+
+  const {
+    id: sumit, // we are doing this because there is already a id available
+    name,
+    price,
+    company,
+    description,
+    category,
+    stock,
+    reviews,
+    stars,
+    image
+
+  } = singleProduct
+
+
+  useEffect(() => {
+    getSingleProduct(`${url}?id=${id}`)
+  }, [])
+
+
+
+  if (isSingleLoading === true) {
+    return <h2 style={{ color: "red" }}>Loading...</h2>;
+  }
   return (
     <Wrapper>
-      <h1>this is an singleproduct page</h1>
+      <PageNavigation title={name} />
+      <div className="container" >
+        <div className="grid grid-two-column">
+          {/* images of the product , This will be done with the help of an image component that we will be creating */}
+          <div className="product_images">
+            <ProductImage img={image} />
+          </div>
+          {/* product description */}
+          <div className="product-data">
+            <h2>{name}</h2>
+            <p>{stars}</p>
+            <p>{reviews} - reviews</p>
+            <p className="product-data-price">
+              MRP:
+              <del>
+                <FormatPrice price={price + 250000} />
+              </del>
+            </p>
+            <p className="product-data-price product-data-real-price">
+              Deal of the day <FormatPrice price={price} />
+            </p>
+            <p>{description}</p>
+            <div className="product-data-warranty">
+              <div className="product-warranty-data">
+                <TbTruckDelivery className="warranty-icon" size="30" />
+                <p>Free Delivery </p>
+              </div>
+
+              <div className="product-warranty-data">
+                <TbReplace className="warranty-icon" size="30" />
+                <p>30 days Replacement  </p>
+              </div>
+              <div className="product-warranty-data">
+                <MdSecurity className="warranty-icon" size="30" />
+                <p> 1 year warranty </p>
+              </div>
+            </div>
+            <div className="product-data-info">
+              <p> available :
+                <span>{stock > 0 ? "In stock" : "Out of stock"}</span>
+              </p>
+              <p>Id :
+                <span>{id} </span>
+              </p>
+              <p>Brand :
+                <span>{company}</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </Wrapper>
   )
 }
