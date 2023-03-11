@@ -3,6 +3,7 @@ import { Button } from "../styles/Button"
 import styled from "styled-components"
 import { useState } from "react"
 import { FaCheck } from "react-icons/fa"
+import CartAmountToggle from "./CartAmountToggle" // for the changing of amount of product value 
 const AddToCart = ({ details }) => {
     const {
         id: sumit, // we are doing this because there is already a id available
@@ -11,9 +12,19 @@ const AddToCart = ({ details }) => {
 
     } = details
 
-    
+
     const [color, setColor] = useState(colors[0]);
     //initializing the color state with 0th index will lead to highlighting of the first color of the colors arraylist available
+
+    const [amount, setAmount] = useState(1);
+
+    const setIncrease = () => {
+        amount < stock ? setAmount(amount + 1) : setAmount(stock); // this will ensure that the value do not go above the stock
+    }
+
+    const setDecrease = () => {
+        amount > 1 ? setAmount(amount - 1) : setAmount(1); // this will ensure that the amount do not go below 1
+    }
 
 
     return (
@@ -27,20 +38,28 @@ const AddToCart = ({ details }) => {
                             return (
                                 <button key={index}
                                     style={{ backgroundColor: `${curColor}` }}
-                                    className= {curColor === color ? "btnStyle active" : "btnStyle"
+                                    className={curColor === color ? "btnStyle active" : "btnStyle"
                                     }
-                                    onClick = {(e) => {
+                                    onClick={(e) => {
                                         setColor(curColor)
                                     }}
-                                    >
-                                    {curColor === color && <FaCheck className="checkStyle"/>}
+                                >
+                                    {curColor === color && <FaCheck className="checkStyle" />}
                                 </button>)
                         })
                     }
                 </p>
             </div>
-            <br/>
-            <div><NavLink to="/cart"><Button >Add to Cart</Button></NavLink></div>
+            {/* add to cart section  */}
+            <CartAmountToggle
+                amount={amount}
+                setIncrease={setIncrease}
+                setDecrease={setDecrease} />
+
+            <NavLink to="/cart" >
+                <Button className="btn"> Add to cart</Button>
+            </NavLink>
+
         </Wrapper>
     )
 }
