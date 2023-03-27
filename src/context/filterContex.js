@@ -2,26 +2,33 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { useProductContext } from "./contextProduct";
 import reducer from "../reducer/filterProductReducer";
 
-const FilterContex = createContext();
+
+const FilterContext = createContext();
 
 const initialState = {
+    filter_products: [],
     all_products: [],
-    filtered_products: []
-}
-export const ContextProvider = ({ childern }) => {
+};
+
+export const FilterContextProvider = ({ children }) => {
     const { products } = useProductContext();
+
     const [state, dispatch] = useReducer(reducer, initialState);
+
+
+
     useEffect(() => {
-        dispatch({ type: "LOAD_FILTERED_PRODUCT", payload: products }) ;
-    }, [products])
+        dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
+    }, [products]);
+
     return (
-        <>
-            <FilterContex.Provider value={{ ...state }}>
-                {childern}
-            </FilterContex.Provider>
-        </>
+        <FilterContext.Provider
+            value={{ ...state }}>
+            {children}
+        </FilterContext.Provider>
     );
 };
+
 export const useFilterContext = () => {
-    return useContext(FilterContex);
-}
+    return useContext(FilterContext);
+};

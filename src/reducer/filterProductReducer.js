@@ -1,7 +1,7 @@
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case "LOAD_FILTERED_PRODUCT":
+        case "LOAD_FILTER_PRODUCTS":
             return {
                 ...state,
                 filtered_products: [...action.payload],
