@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 import { useFilterContext } from "../context/filterContex";
 const Sort = () => {
-  const { gridView, setGridView, setListView, filter_products } = useFilterContext();
+  const { gridView, setGridView, setListView, filter_products ,sorting } = useFilterContext();
 
   return (
     <Wrapper className="sort-section">
       <div className="sorting-list--grid">
-      <button
+        <button
           className={gridView ? "active sort-btn" : "sort-btn"}
           onClick={setGridView}>
           <BsFillGridFill className="icon" />
@@ -20,7 +20,21 @@ const Sort = () => {
         </button>
       </div>
       <div className="product-data">{`${filter_products.length} product available`}</div>
-      <div className="sort-selection">dropdown</div>
+      <div className="sort-selection">
+        <form>
+          <label htmlFor="sort">
+            <select className="sort-selection--style" name="sort" id="sort" onClick={sorting}>
+              <option value="lowest">Price:(lowest)</option>
+              <option value="#" disabled></option>
+              <option value="highest">Price:(highest)</option>
+              <option value="#" disabled></option>
+              <option value="a-z">Price:(a-z)</option>
+              <option value="#" disabled></option>
+              <option value="z-a">Price:(z-a)</option>
+            </select>
+          </label>
+        </form>
+      </div>
 
 
     </Wrapper>

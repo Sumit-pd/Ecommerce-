@@ -17,6 +17,15 @@ const reducer = (state, action) => {
                 ...state , 
                 gridView : false 
             }
+        case "Get_sorted_value" :
+            let userSelectValue = document.getElementById("sort")
+            let value = userSelectValue.options[userSelectValue.selectedIndex].value
+            // console.log(value)
+            return {
+                ...state , 
+                sorting_value : value
+            }
+
         default:
             return state
 
