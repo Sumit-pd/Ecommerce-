@@ -7,10 +7,15 @@ const reducer = (state, action) => {
                 filter_products: [...action.payload],
                 all_products: [...action.payload],
             };
-        case "SET_GRIDVIEW" :
+        case "SET_GRID_VIEW" :
             return {
                 ...state , 
                 gridView : true
+            }
+        case "SET_List_VIEW" :
+            return {
+                ...state , 
+                gridView : false 
             }
         default:
             return state
