@@ -8,8 +8,8 @@ const FilterContext = createContext();
 const initialState = {
     filter_products: [],
     all_products: [],
-    gridView: false ,
-    sorting_value : "lowest"
+    gridView: false,
+    sorting_value: "lowest"
 };
 
 export const FilterContextProvider = ({ children }) => {
@@ -28,14 +28,15 @@ export const FilterContextProvider = ({ children }) => {
 
 
     //this function will be used for sorting
-    const sorting = () => {
-        return dispatch({ type : "Get_sorted_value"})
+    const sorting = (e) => {
+        let userValue = e.target.value;
+        return dispatch({ type: "Get_sorted_value", payload: userValue })
     }
 
 
     useEffect(() => {
-        dispatch({type : "Filter_Sort" , payload  : products })
-    }, [state.sorting_value]);
+        dispatch({ type: "Filter_Sort" })
+    }, [products , state.sorting_value]);
 
     useEffect(() => {
         dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
@@ -43,7 +44,7 @@ export const FilterContextProvider = ({ children }) => {
 
     return (
         <FilterContext.Provider
-            value={{ ...state , setGridView , setListView , sorting  }}>
+            value={{ ...state, setGridView, setListView, sorting }}>
             {children}
         </FilterContext.Provider>
     );

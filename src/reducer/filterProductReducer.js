@@ -18,29 +18,32 @@ const reducer = (state, action) => {
                 gridView: false
             }
         case "Get_sorted_value":
-            let userSelectValue = document.getElementById("sort")
-            // console.log(userSelectValue) ;
-            let value = userSelectValue.options[userSelectValue.selectedIndex].value
-            // console.log(value)
+            let value = action.payload
             return {
                 ...state,
                 sorting_value: value
             }
         case "Filter_Sort":
             let sortedProduct;
-            let ogCopy = [...action.payload]
-            if (state.sorting_value === "a-z") {
-                sortedProduct = ogCopy.sort((a, b) => a.name.localeCompare(b.name))
+            const { filter_products , sorting_value } = state;
+            let ogCopy = [...filter_products]
+            const sortFunction = (a, b) => {
+                switch (sorting_value) {
+                    case "a-z":
+                        return a.name.localeCompare(b.name)
+                    case "z-a":
+                        return b.name.localeCompare(a.name) ;
+                    case "lowest":
+                        return a.price - b.price ;
+                    case "highest":
+                        return b.price - a.price
+
+                    default:
+                        break;
+                }
             }
-            if (state.sorting_value === "z-a") {
-                sortedProduct = ogCopy.sort((a, b) => b.name.localeCompare(a.name))
-            }
-            if (state.sorting_value === "lowest") {
-                sortedProduct = ogCopy.sort((a, b) => a.price - b.price )
-            }
-            if (state.sorting_value === "highest") {
-                sortedProduct = ogCopy.sort((a, b) => b.price - a.price )
-            }
+
+            sortedProduct = ogCopy.sort(sortFunction) ;
             return {
                 ...state,
                 filter_products: sortedProduct
