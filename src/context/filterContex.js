@@ -34,7 +34,7 @@ export const FilterContextProvider = ({ children }) => {
 
 
     useEffect(() => {
-        console.log("sorting value changed")
+        dispatch({type : "Filter_Sort" , payload  : products })
     }, [state.sorting_value]);
 
     useEffect(() => {
