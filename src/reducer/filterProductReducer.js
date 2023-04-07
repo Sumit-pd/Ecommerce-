@@ -18,10 +18,10 @@ const reducer = (state, action) => {
                 gridView: false
             }
         case "Get_sorted_value":
-            let value = action.payload
+            
             return {
                 ...state,
-                sorting_value: value
+                sorting_value: action.payload
             }
         case "Filter_Sort":
             let sortedProduct;
@@ -39,7 +39,7 @@ const reducer = (state, action) => {
                         return b.price - a.price
 
                     default:
-                        break;
+                        return;
                 }
             }
 
@@ -47,6 +47,32 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 filter_products: sortedProduct
+            };
+        case "Update_Filter_Value" :
+            const {name , value } = action.payload ;
+            return {
+                ...state , 
+                filter : {
+                    ...state.filter,
+                    [name] : value
+                }
+            }
+        case "FILTER_UPDATE" :
+            let {all_products } = state ;
+            let copyAllProducts = [...all_products] ;
+            const {text} = state.filter
+            // console.log(all_products)
+            
+            //the below line will execute if the user uses the search button
+            if(text){
+                copyAllProducts = copyAllProducts.filter((curElement) => {
+                    return curElement.name.toLowerCase().startsWith(text) ;
+                })
+                
+            }            
+            return {
+                ...state , 
+                filter_products : copyAllProducts 
             }
 
         default:
