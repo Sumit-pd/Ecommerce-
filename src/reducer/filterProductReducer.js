@@ -66,7 +66,7 @@ const reducer = (state, action) => {
             //the below line will execute if the user uses the search button
             if(text){
                 copyAllProducts = copyAllProducts.filter((curElement) => {
-                    return curElement.name.toLowerCase().startsWith(text) ;
+                    return curElement.name.toLowerCase().includes(text) ;
                 })
                 
             }            

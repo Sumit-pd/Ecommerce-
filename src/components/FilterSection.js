@@ -1,7 +1,23 @@
 import styled from "styled-components";
 import { useFilterContext } from "../context/filterContex";
 const FilterSection = () => {
-  const { filter : {text}  , useFilterValue} = useFilterContext();
+  const { filter : {text}  , useFilterValue , all_products } = useFilterContext();
+  // we are using type argument so that we can this code for multiple filteration like companies , color
+  // else we can also do .category that will also work
+  const getUniqueData = (data , type) => {
+      let newData = data.map((curElement) => {
+        return curElement[type]
+      })
+      return newData;
+  }
+  const categoryOnlyData = getUniqueData(all_products , "category" ) ;
+  const uniqueData = ["All" , ...new Set(categoryOnlyData)]
+  // this will contain all the values that according to which the user 
+  //will be able to filter the product section , ie , all the categories will be in the above variable
+
+
+
+
   return (
     <Wrapper>
       <div className="filter-section">
@@ -14,6 +30,7 @@ const FilterSection = () => {
             onChange={useFilterValue}
           />
         </form>
+        <div>category</div>
       </div>
     </Wrapper>
   )
