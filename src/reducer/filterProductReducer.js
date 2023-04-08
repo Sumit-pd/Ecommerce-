@@ -59,9 +59,9 @@ const reducer = (state, action) => {
                 }
             }
         case "FILTER_UPDATE":
-            let { all_products  } = state;
+            let { all_products } = state;
             let copyAllProducts = [...all_products];
-            const { text, category } = state.filter
+            const { text, category, company } = state.filter
 
 
             //the below line will execute if the user uses the search button
@@ -78,8 +78,13 @@ const reducer = (state, action) => {
                         return curElement.category === category;
                     })
                 }
-                
-                
+            }
+            if (company) {
+                if (company !== "all") {
+                    copyAllProducts = copyAllProducts.filter((curElement) => {
+                        return curElement.company.toLowerCase() === company.toLowerCase();
+                    })
+                }
 
             }
             return {

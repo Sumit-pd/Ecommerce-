@@ -12,7 +12,11 @@ const FilterSection = () => {
     return newData;
   }
   const categoryOnlyData = getUniqueData(all_products, "category");
-  const uniqueData = ["All", ...new Set(categoryOnlyData)]
+  const uniqueData = ["all", ...new Set(categoryOnlyData)];
+
+
+  const companyOnlyData = getUniqueData(all_products, "company");
+  const UniqueCompany = ["all", ...new Set(companyOnlyData)]
   // this will contain all the values that according to which the user 
   //will be able to filter the product section , ie , all the categories will be in the above variable
 
@@ -32,7 +36,7 @@ const FilterSection = () => {
           />
         </form>
         <div className="filter-category">
-          <h3>category</h3>
+          <h3>Category</h3>
           <div>
             {
               uniqueData.map((curElement) => {
@@ -52,24 +56,30 @@ const FilterSection = () => {
           </div>
 
         </div>
-        {/* <div className="filter-category">
-          <h3>Category</h3>
-          <div>
-            {uniqueData.map((curElem, index) => {
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  name="category"
-                  value={curElem}
-                  className={curElem === category ? "active" : ""}
-                  onClick={useFilterValue}>
-                  {curElem}
-                </button>
-              );
-            })}
-          </div>
-        </div> */}
+        <div className="filter-company">
+          <h3>Company</h3>
+          <form>
+            <select
+              className="filter-company--select"
+              name="company"
+              onClick={useFilterValue}>
+              {
+                UniqueCompany.map((curElement, i) => {
+                  return (
+                    <option
+                      key={i}
+                      value={curElement}>
+                      {curElement}
+                    </option>
+                  )
+                })
+              }
+
+            </select>
+          </form>
+
+        </div>
+
       </div>
     </Wrapper>
   )
