@@ -12,7 +12,8 @@ const initialState = {
     filter: {
         text: "",
         category: "all", // initially the filter will be all indicating that there are no filters
-        company: "all"
+        company: "all",
+        color: "all"
     }
 };
 
@@ -49,7 +50,7 @@ export const FilterContextProvider = ({ children }) => {
 
 
     useEffect(() => {
-        dispatch({ type: "Filter_Sort" , payload : products });
+        dispatch({ type: "Filter_Sort", payload: products });
         dispatch({ type: "FILTER_UPDATE" });
     }, [products, state.sorting_value, state.filter]);
 

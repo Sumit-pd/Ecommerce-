@@ -9,14 +9,24 @@ const FilterSection = () => {
     let newData = data.map((curElement) => {
       return curElement[type]
     })
-    return newData;
+    if(type === "colors"){
+      return [newData = "all" , ...new Set([].concat(...newData))]
+    }
+
+    else{
+      return ["all", ...new Set(newData)];
+    }
   }
   const categoryOnlyData = getUniqueData(all_products, "category");
-  const uniqueData = ["all", ...new Set(categoryOnlyData)];
+  
 
 
   const companyOnlyData = getUniqueData(all_products, "company");
-  const UniqueCompany = ["all", ...new Set(companyOnlyData)]
+
+
+  const colorOnlyData = getUniqueData(all_products , "colors") ;
+ 
+
   // this will contain all the values that according to which the user 
   //will be able to filter the product section , ie , all the categories will be in the above variable
 
@@ -39,7 +49,7 @@ const FilterSection = () => {
           <h3>Category</h3>
           <div>
             {
-              uniqueData.map((curElement) => {
+              categoryOnlyData.map((curElement) => {
                 return (
                   <button
                     name="category"
@@ -64,7 +74,7 @@ const FilterSection = () => {
               name="company"
               onClick={useFilterValue}>
               {
-                UniqueCompany.map((curElement, i) => {
+                companyOnlyData.map((curElement, i) => {
                   return (
                     <option
                       key={i}
@@ -78,6 +88,9 @@ const FilterSection = () => {
             </select>
           </form>
 
+        </div>
+        <div>
+            <h3>Colors</h3>
         </div>
 
       </div>
