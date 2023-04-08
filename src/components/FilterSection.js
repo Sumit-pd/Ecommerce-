@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import { useFilterContext } from "../context/filterContex";
 const FilterSection = () => {
-  const { filter : {text}  , useFilterValue , all_products } = useFilterContext();
+  const { filter: { text, category }
+    , useFilterValue, all_products } = useFilterContext();
   // we are using type argument so that we can this code for multiple filteration like companies , color
   // else we can also do .category that will also work
-  const getUniqueData = (data , type) => {
-      let newData = data.map((curElement) => {
-        return curElement[type]
-      })
-      return newData;
+  const getUniqueData = (data, type) => {
+    let newData = data.map((curElement) => {
+      return curElement[type]
+    })
+    return newData;
   }
-  const categoryOnlyData = getUniqueData(all_products , "category" ) ;
-  const uniqueData = ["All" , ...new Set(categoryOnlyData)]
+  const categoryOnlyData = getUniqueData(all_products, "category");
+  const uniqueData = ["All", ...new Set(categoryOnlyData)]
   // this will contain all the values that according to which the user 
   //will be able to filter the product section , ie , all the categories will be in the above variable
 
@@ -30,7 +31,45 @@ const FilterSection = () => {
             onChange={useFilterValue}
           />
         </form>
-        <div>category</div>
+        <div className="filter-category">
+          <h3>category</h3>
+          <div>
+            {
+              uniqueData.map((curElement) => {
+                return (
+                  <button
+                    name="category"
+                    type="button"
+                    onClick={useFilterValue}
+                    value={curElement}
+                  >
+                    {curElement}
+
+                  </button>
+                )
+              })
+            }
+          </div>
+
+        </div>
+        {/* <div className="filter-category">
+          <h3>Category</h3>
+          <div>
+            {uniqueData.map((curElem, index) => {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  name="category"
+                  value={curElem}
+                  className={curElem === category ? "active" : ""}
+                  onClick={useFilterValue}>
+                  {curElem}
+                </button>
+              );
+            })}
+          </div>
+        </div> */}
       </div>
     </Wrapper>
   )

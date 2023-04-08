@@ -10,7 +10,9 @@ const initialState = {
     gridView: true,
     sorting_value: "lowest",
     filter: {
-        text: ""
+        text: "",
+        category: "all", // initially the filter will be all indicating that there are no filters
+        company: "all"
     }
 };
 
@@ -47,9 +49,9 @@ export const FilterContextProvider = ({ children }) => {
 
 
     useEffect(() => {
-        dispatch({ type: "Filter_Sort" });
-        dispatch({type : "FILTER_UPDATE"}) ;
-    }, [products, state.sorting_value , state.filter]);
+        dispatch({ type: "Filter_Sort" , payload : products });
+        dispatch({ type: "FILTER_UPDATE" });
+    }, [products, state.sorting_value, state.filter]);
 
     useEffect(() => {
         dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
