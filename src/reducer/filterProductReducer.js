@@ -90,6 +90,7 @@ const reducer = (state, action) => {
                 if(color !== "all"){
                     copyAllProducts = copyAllProducts.filter((curElement) => {
                         return curElement.colors.includes(color) 
+                        //the includes method will find the color in the array of colors from the api
                     })
                 }
             }
