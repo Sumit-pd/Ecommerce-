@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useFilterContext } from "../context/filterContex";
 const FilterSection = () => {
-  const { filter: { text, category }
+  const { filter: { text, category, color }
     , useFilterValue, all_products } = useFilterContext();
   // we are using type argument so that we can this code for multiple filteration like companies , color
   // else we can also do .category that will also work
@@ -9,23 +9,26 @@ const FilterSection = () => {
     let newData = data.map((curElement) => {
       return curElement[type]
     })
-    if(type === "colors"){
-      return [newData = "all" , ...new Set([].concat(...newData))]
+    if (type === "colors") {
+      return newData = ["all", ...new Set([].concat(...newData))]
+      //we can also use newData.flat() method
     }
 
-    else{
-      return ["all", ...new Set(newData)];
+    else {
+      return newData = ["all", ...new Set(newData)];
     }
+
+
   }
   const categoryOnlyData = getUniqueData(all_products, "category");
-  
+
 
 
   const companyOnlyData = getUniqueData(all_products, "company");
 
 
-  const colorOnlyData = getUniqueData(all_products , "colors") ;
- 
+  const colorOnlyData = getUniqueData(all_products, "colors");
+
 
   // this will contain all the values that according to which the user 
   //will be able to filter the product section , ie , all the categories will be in the above variable
@@ -89,8 +92,32 @@ const FilterSection = () => {
           </form>
 
         </div>
-        <div>
-            <h3>Colors</h3>
+        <div className="filter-colors colors">
+          <h3>Colors</h3>
+          <div className="filter-color-style">
+            {
+              colorOnlyData.map((curElement, index) => {
+                return (
+                  <button
+                    key={index}
+                    className="btnStyle"
+                    type="button"
+                    name="color"
+                    value={curElement}
+                    style={
+                      { backgroundColor: curElement }
+                    }
+                    onClick = {useFilterValue}
+
+
+                  >
+                    {color === curElement ? "" : null}
+                  </button>
+                )
+              })
+            }
+
+          </div>
         </div>
 
       </div>
