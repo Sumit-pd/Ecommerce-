@@ -40,7 +40,9 @@ export const FilterContextProvider = ({ children }) => {
         let userValue = e.target.value;
         return dispatch({ type: "Get_sorted_value", payload: userValue })
     }
-
+    const clearFilterValue = () =>{
+        return dispatch({type : "clearFilter" , payload : products})
+    }
 
 
     //update filter value of the search bar
@@ -63,7 +65,7 @@ export const FilterContextProvider = ({ children }) => {
 
     return (
         <FilterContext.Provider
-            value={{ ...state, setGridView, setListView, sorting, useFilterValue }}>
+            value={{ ...state, setGridView, setListView, sorting, useFilterValue  , clearFilterValue}}>
             {children}
         </FilterContext.Provider>
     );

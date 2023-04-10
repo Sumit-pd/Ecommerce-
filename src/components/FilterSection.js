@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { useFilterContext } from "../context/filterContex";
 import { FaCheck } from "react-icons/fa"
 import FormatPrice from "../Helpers/FormatPrice"
+import { Button } from "../styles/Button"
 
 
 const FilterSection = () => {
   const { filter: { text, category, color, maxPrice, minPrice, price }
-    , useFilterValue, all_products } = useFilterContext();
+    , useFilterValue, all_products , clearFilterValue } = useFilterContext();
   // we are using type argument so that we can this code for multiple filteration like companies , color
   // else we can also do .category that will also work
   const getUniqueData = (data, type) => {
@@ -148,7 +149,14 @@ const FilterSection = () => {
             {/* this is already updated in the use reducer section in the Update_Filter_Value case */}
           </div>
         </div>
+        <div className="filter-clear">
+          <Button
+            className="btn"
+            name = "clearFilter"
+            onClick={clearFilterValue}
+          >Clear Filter</Button>
 
+        </div>
       </div>
     </Wrapper>
   )

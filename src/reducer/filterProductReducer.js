@@ -76,6 +76,20 @@ const reducer = (state, action) => {
                     [name]: value
                 }
             }
+        case "clearFilter":
+            return {
+                ...state , 
+                filter_products: action.payload , 
+                filter: {
+                    text: "",
+                    category: "all", // initially the filter will be all indicating that there are no filters
+                    company: "all",
+                    color: "all",
+                    maxPrice : state.filter.maxPrice , 
+                    price : state.filter.maxPrice, 
+                    minPrice : 0
+                }
+            }
         case "FILTER_UPDATE":
             let { all_products } = state;
             let copyAllProducts = [...all_products];
