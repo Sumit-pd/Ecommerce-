@@ -13,7 +13,10 @@ const initialState = {
         text: "",
         category: "all", // initially the filter will be all indicating that there are no filters
         company: "all",
-        color: "all"
+        color: "all",
+        maxPrice : 0 , 
+        price : 0 , 
+        minPrice : 0
     }
 };
 

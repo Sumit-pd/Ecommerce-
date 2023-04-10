@@ -1,11 +1,24 @@
 
 const reducer = (state, action) => {
     switch (action.type) {
+
         case "LOAD_FILTER_PRODUCTS":
+            let priceArr = action.payload.map((curElem) => curElem.price);
+            // const maxi = Math.max.apply(Math , priceArr) // we can add undefinded and null as well
+            //we can also do this with the help of spread opeator
+            const maxi = priceArr.reduce(
+                (initialVal, curElem) => Math.max(initialVal, curElem), 0
+            )
+            console.log(maxi)
             return {
                 ...state,
                 filter_products: [...action.payload],
                 all_products: [...action.payload],
+                filter : {
+                    ...state.filter , 
+                    maxPrice : maxi , 
+                    price : maxi  
+                }
             };
         case "SET_GRID_VIEW":
             return {
@@ -61,7 +74,7 @@ const reducer = (state, action) => {
         case "FILTER_UPDATE":
             let { all_products } = state;
             let copyAllProducts = [...all_products];
-            const { text, category, company , color } = state.filter
+            const { text, category, company, color } = state.filter
 
 
             //the below line will execute if the user uses the search button
@@ -86,10 +99,10 @@ const reducer = (state, action) => {
                     })
                 }
             }
-            if(color){
-                if(color !== "all"){
+            if (color) {
+                if (color !== "all") {
                     copyAllProducts = copyAllProducts.filter((curElement) => {
-                        return curElement.colors.includes(color) 
+                        return curElement.colors.includes(color)
                         //the includes method will find the color in the array of colors from the api
                     })
                 }

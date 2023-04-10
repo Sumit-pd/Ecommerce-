@@ -31,6 +31,7 @@ const FilterSection = () => {
   const colorOnlyData = getUniqueData(all_products, "colors");
 
 
+
   // this will contain all the values that according to which the user 
   //will be able to filter the product section , ie , all the categories will be in the above variable
 
@@ -98,14 +99,14 @@ const FilterSection = () => {
           <div className="filter-color-style">
             {
               colorOnlyData.map((curElement, index) => {
-                if(curElement === "all"){
+                if (curElement === "all") {
                   return (<button
                     key={index}
                     type="button"
                     name="color"
                     value={curElement}
-                    onClick = {useFilterValue}
-                    className = "color-all--style"
+                    onClick={useFilterValue}
+                    className="color-all--style"
                   >
                     all
                   </button>)
@@ -120,16 +121,20 @@ const FilterSection = () => {
                     style={
                       { backgroundColor: curElement }
                     }
-                    onClick = {useFilterValue}
-
-
+                    onClick={useFilterValue}
                   >
-                    {color === curElement ? <FaCheck className="checkStyle"/> : null}
+                    {color === curElement ? <FaCheck className="checkStyle" /> : null}
                   </button>
                 )
               })
             }
 
+          </div>
+        </div>
+        <div>
+          <h3>Price</h3>
+          <div className="filter_price">
+            <input type="range" min="10000" max="200000" />
           </div>
         </div>
 
