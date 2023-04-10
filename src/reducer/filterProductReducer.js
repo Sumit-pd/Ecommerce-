@@ -6,18 +6,23 @@ const reducer = (state, action) => {
             let priceArr = action.payload.map((curElem) => curElem.price);
             // const maxi = Math.max.apply(Math , priceArr) // we can add undefinded and null as well
             //we can also do this with the help of spread opeator
-            const maxi = priceArr.reduce(
-                (initialVal, curElem) => Math.max(initialVal, curElem), 0
-            )
+            const maxi = Math.max(...priceArr)
+            console.log(maxi)
+            /*
+            syntax of the reducer function 
+            arr.reduce((accumulator , curElement , index , array)=> {
+            } , initial value)
+            
+            */
             console.log(maxi)
             return {
                 ...state,
                 filter_products: [...action.payload],
                 all_products: [...action.payload],
-                filter : {
-                    ...state.filter , 
-                    maxPrice : maxi , 
-                    price : maxi  
+                filter: {
+                    ...state.filter,
+                    maxPrice: maxi,
+                    price: maxi
                 }
             };
         case "SET_GRID_VIEW":
@@ -74,7 +79,7 @@ const reducer = (state, action) => {
         case "FILTER_UPDATE":
             let { all_products } = state;
             let copyAllProducts = [...all_products];
-            const { text, category, company, color } = state.filter
+            const { text, category, company, color , price } = state.filter
 
 
             //the below line will execute if the user uses the search button
@@ -106,6 +111,11 @@ const reducer = (state, action) => {
                         //the includes method will find the color in the array of colors from the api
                     })
                 }
+            }
+            if(price){
+                copyAllProducts = copyAllProducts.filter((curElem) =>{
+                    return curElem.price <= price ;
+                })
             }
             return {
                 ...state,

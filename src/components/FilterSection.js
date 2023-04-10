@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { useFilterContext } from "../context/filterContex";
 import { FaCheck } from "react-icons/fa"
+import FormatPrice from "../Helpers/FormatPrice"
+
+
 const FilterSection = () => {
-  const { filter: { text, category, color }
+  const { filter: { text, category, color, maxPrice, minPrice, price }
     , useFilterValue, all_products } = useFilterContext();
   // we are using type argument so that we can this code for multiple filteration like companies , color
   // else we can also do .category that will also work
@@ -134,7 +137,15 @@ const FilterSection = () => {
         <div>
           <h3>Price</h3>
           <div className="filter_price">
-            <input type="range" min="10000" max="200000" />
+            <p><FormatPrice price={price} /></p>
+            <input type="range"
+              name="price"
+              min={minPrice}
+              max={maxPrice}
+              value={price}
+              onChange={useFilterValue}
+            />
+            {/* this is already updated in the use reducer section in the Update_Filter_Value case */}
           </div>
         </div>
 
