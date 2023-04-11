@@ -7,14 +7,12 @@ const reducer = (state, action) => {
             // const maxi = Math.max.apply(Math , priceArr) // we can add undefinded and null as well
             //we can also do this with the help of spread opeator
             const maxi = Math.max(...priceArr)
-            console.log(maxi)
             /*
             syntax of the reducer function 
             arr.reduce((accumulator , curElement , index , array)=> {
             } , initial value)
             
             */
-            console.log(maxi)
             return {
                 ...state,
                 filter_products: [...action.payload],
