@@ -3,4 +3,5 @@
   "workbench.activityBar.visible": true,
   "workbench.colorCustomizations": {},
   "json.schemas": []
+  ,"emmet.includeLanguages": { "javascript":"javascriptreact" }
 }
