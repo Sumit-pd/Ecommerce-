@@ -1,37 +1,57 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/cartReducer";
 
 const CartContext = createContext();
 
+
+const getLocalStroageData = () =>{
+    let localStorageData = localStorage.getItem("sumitCart")
+    if(localStorageData === []){
+        return [] ;
+    }
+    else {
+        return JSON.parse(localStorageData) ;
+    }
+}
 const initialState = {
-  cart: [],
-  total_item: "",
-  total_amount: "",
-  shipping_fee: 50000,
+    cart: getLocalStroageData(),
+    total_item: "",
+    total_amount: "",
+    shipping_fee: 50000,
 };
 
 const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addToCart = (id, color, amount, details) => {
-    dispatch({ type: "ADD_TO_CART", payload: { id, color, amount, details } });
-  };
+    const addToCart = (id, color, amount, details) => {
+        dispatch({ type: "ADD_TO_CART", payload: { id, color, amount, details } });
+    };
 
-  const removeFromCart = (id) =>{
-    dispatch({type : "REMOVE_FROM_CART" , payload : id })
-  }
+    const removeFromCart = (id) => {
+        dispatch({ type: "REMOVE_FROM_CART", payload: id })
+    }
 
-  
 
-  return (
-    <CartContext.Provider value={{ ...state, addToCart , removeFromCart }}>
-      {children}
-    </CartContext.Provider>
-  );
+    // we will be using local storage (there are mainly only two methods of local storage) we will be using the get method
+
+
+
+    // useEffect will be used because everytime the page is refreshed we need to add data to the cart array
+    useEffect(() => { 
+        localStorage.setItem("sumitCart" , JSON.stringify(state.cart))
+    }, [state.cart])
+
+
+
+    return (
+        <CartContext.Provider value={{ ...state, addToCart, removeFromCart }}>
+            {children}
+        </CartContext.Provider>
+    );
 };
 
 const useCartContext = () => {
-  return useContext(CartContext);
+    return useContext(CartContext);
 };
 
 export { CartProvider, useCartContext };
