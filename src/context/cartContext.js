@@ -17,10 +17,14 @@ const CartProvider = ({ children }) => {
     dispatch({ type: "ADD_TO_CART", payload: { id, color, amount, details } });
   };
 
+  const removeFromCart = (id) =>{
+    dispatch({type : "REMOVE_FROM_CART" , payload : id })
+  }
+
   
 
   return (
-    <CartContext.Provider value={{ ...state, addToCart }}>
+    <CartContext.Provider value={{ ...state, addToCart , removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
