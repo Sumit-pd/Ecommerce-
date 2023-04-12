@@ -1,32 +1,68 @@
 import styled from "styled-components";
 import { useCartContext } from "./context/cartContext"
 import CartItem from "./components/CartItem"
+import { Button } from "./styles/Button"
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
-  const { cart } = useCartContext();
+  const { cart, clearCart } = useCartContext();
+  if (cart.length === 0) {
+    return(
+    <EmptyDiv>
+      <h3>No Items in the cart</h3>
+    </EmptyDiv>)
+  }
+  else {
+    return (
+      <Wrapper>
+        <div className="container">
+          <div className="cart-heading grid grid-five-column">
+            <p>Item</p>
+            <p className="cart-hide"> Price</p>
+            <p>Quantity</p>
+            <p className="cart-hide">Subtotal</p>
+            <p>remove</p>
+          </div>
+          <hr />
+          <div className="cart-item">
+            {
+              cart.map(curElem => {
+                return <CartItem key={curElem.id} {...curElem} />
+              })
+            }
+            <hr />
+            <div className="cart-two-button">
+              <NavLink to="/product">
+                <Button>Continue shopping</Button>
+              </NavLink>
 
-  return (
-    <Wrapper>
-      <div className="container">
-        <div className="cart-heading grid grid-five-column">
-          <p>Item</p>
-          <p className="cart-hide"> Price</p>
-          <p>Quantity</p>
-          <p className="cart-hide">Subtotal</p>
-          <p>remove</p>
-        </div>
-        <hr />
-        <div className="cart-item">
-          {
-            cart.map(curElem => {
-              return <CartItem key={curElem.id} {...curElem} />
-            })
-          }
-        </div>
-      </div>
+              <Button
+                style={{ backgroundColor: "red" }}
+                onClick={clearCart}>
+                Clear Cart
+              </Button>
+            </div>
 
-    </Wrapper>);
+
+
+          </div>
+        </div>
+
+      </Wrapper>);
+  }
 };
+
+const EmptyDiv = styled.div`
+  display: grid ;
+  place-items : center ;
+  height : 50vh ;
+
+  h3{
+    font-size : 4.2rem ;
+    text-transform : capitalize ;
+    font-weight : 300 ;
+  }
+`
 
 const Wrapper = styled.section`
   padding: 9rem 0;

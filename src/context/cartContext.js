@@ -4,13 +4,13 @@ import reducer from "../reducer/cartReducer";
 const CartContext = createContext();
 
 
-const getLocalStroageData = () =>{
+const getLocalStroageData = () => {
     let localStorageData = localStorage.getItem("sumitCart")
-    if(localStorageData === []){
-        return [] ;
+    if (localStorageData === []) {
+        return [];
     }
     else {
-        return JSON.parse(localStorageData) ;
+        return JSON.parse(localStorageData);
     }
 }
 const initialState = {
@@ -32,19 +32,23 @@ const CartProvider = ({ children }) => {
     }
 
 
+    const clearCart = () => {
+        dispatch({ type: "CLEAR_CART" })
+    }
+
     // we will be using local storage (there are mainly only two methods of local storage) we will be using the get method
 
 
 
     // useEffect will be used because everytime the page is refreshed we need to add data to the cart array
-    useEffect(() => { 
-        localStorage.setItem("sumitCart" , JSON.stringify(state.cart))
+    useEffect(() => {
+        localStorage.setItem("sumitCart", JSON.stringify(state.cart))
     }, [state.cart])
 
 
 
     return (
-        <CartContext.Provider value={{ ...state, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ ...state, addToCart, removeFromCart , clearCart }}>
             {children}
         </CartContext.Provider>
     );
