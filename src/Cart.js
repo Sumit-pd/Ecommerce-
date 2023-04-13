@@ -32,7 +32,7 @@ const Cart = () => {
             }
             <hr />
             <div className="cart-two-button">
-              <NavLink to="/product">
+              <NavLink to="/products">
                 <Button>Continue shopping</Button>
               </NavLink>
 
