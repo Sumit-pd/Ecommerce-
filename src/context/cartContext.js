@@ -38,6 +38,13 @@ const CartProvider = ({ children }) => {
 
     // we will be using local storage (there are mainly only two methods of local storage) we will be using the get method
 
+    //increment and decrement
+    const setIncrease = (id) => {
+        dispatch({ type: "INCREASE", payload: id });
+    }
+    const setDecrease = (id) => {
+        dispatch({ type: "DECREASE", payload: id });
+    }
 
 
     // useEffect will be used because everytime the page is refreshed we need to add data to the cart array
@@ -48,7 +55,7 @@ const CartProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{ ...state, addToCart, removeFromCart , clearCart }}>
+        <CartContext.Provider value={{ ...state, addToCart, removeFromCart, clearCart, setIncrease, setDecrease }}>
             {children}
         </CartContext.Provider>
     );

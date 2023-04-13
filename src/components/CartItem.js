@@ -4,14 +4,8 @@ import { FaTrash } from "react-icons/fa";
 import { useCartContext } from "../context/cartContext";
 
 const CartItem = ({ id, name, color, amount, image, price }) => {
-  const { removeFromCart } = useCartContext();
-  const setIncrease = () => {
-    // amount < stock ? setAmount(amount + 1) : setAmount(stock); // this will ensure that the value do not go above the stock
-  }
-
-  const setDecrease = () => {
-    // amount > 1 ? setAmount(amount - 1) : setAmount(1); // this will ensure that the amount do not go below 1
-  }
+  const { removeFromCart , setDecrease , setIncrease } = useCartContext();
+  
 
   return (
     <div className='cart-heading grid grid-five-column'>
@@ -37,7 +31,10 @@ const CartItem = ({ id, name, color, amount, image, price }) => {
       </div>
       {/* Quantity */}
       <div>
-        <CartAmountToggle amount={amount} setIncrease={setIncrease} setDecrease={setDecrease} />
+        <CartAmountToggle
+          amount={amount}
+          setIncrease={() => setIncrease(id)}
+          setDecrease={() => setDecrease(id)} />
       </div>
       {/* Subtotal */}
       <div className="cart-hide">
@@ -49,9 +46,9 @@ const CartItem = ({ id, name, color, amount, image, price }) => {
         <FaTrash
           className="remove_icon"
           size={20}
-          style={{ color: "red" }} 
+          style={{ color: "red" }}
           onClick={() => removeFromCart(id)}
-          />
+        />
 
       </div>
 

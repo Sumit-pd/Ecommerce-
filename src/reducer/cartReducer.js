@@ -7,20 +7,20 @@ const cartReducer = (state, action) => {
         let existingProduct = state.cart.find(curElem => curElem.id === id + color)
         if (existingProduct) {
             let updateList = state.cart.map(curElem => {
-                if(curElem.id === id + color ){
-                    let newAmount = curElem.amount + amount ;
-                    if(newAmount >= curElem.max ){
-                        newAmount = curElem.max ;
+                if (curElem.id === id + color) {
+                    let newAmount = curElem.amount + amount;
+                    if (newAmount >= curElem.max) {
+                        newAmount = curElem.max;
                     }
                     return {
-                        ...curElem , 
-                        amount : newAmount
+                        ...curElem,
+                        amount: newAmount
                     }
                 }
-            }) ;
+            });
             return {
-                ...state , 
-                cart : updateList
+                ...state,
+                cart: updateList
             }
         }
         else {
@@ -59,6 +59,52 @@ const cartReducer = (state, action) => {
         return {
             ...state,
             cart: []
+        }
+    }
+    if (action.type === "INCREASE") {
+        //first we need to check which item is clicked in the cart
+        let newData = state.cart.map(curElem => {
+            if (curElem.id === action.payload) {
+                let curAmount = curElem.amount + 1;
+                if(curAmount >= curElem.max ){
+                    curAmount = curElem.max
+                }
+                return {
+                    ...curElem,
+                    amount: curAmount
+                }
+            }
+            else{
+                return curElem
+            }
+        })
+        {
+            return {
+                ...state , 
+                cart : newData
+            }
+        }
+
+    }
+    if (action.type === "DECREASE") {
+        let newData = state.cart.map((curElem) =>{
+            if(curElem.id === action.payload ){
+                let newAmount = curElem.amount - 1 ;
+                if(newAmount < 1){
+                    newAmount = 1 ;
+                }
+                return {
+                    ...curElem ,
+                    amount : newAmount
+                }
+            }
+            else{
+                return curElem ;
+            }
+        })
+        return {
+            ...state ,
+            cart : newData
         }
     }
 

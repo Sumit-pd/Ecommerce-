@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 
 const Cart = () => {
   const { cart, clearCart } = useCartContext();
+  // console.log(cart)
   if (cart.length === 0) {
     return(
     <EmptyDiv>
