@@ -17,7 +17,7 @@ const initialState = {
     cart: getLocalStroageData(),
     total_item: "",
     total_amount: "",
-    shipping_fee: 50000,
+    shipping_fee: 500,
 };
 
 const CartProvider = ({ children }) => {
@@ -49,6 +49,7 @@ const CartProvider = ({ children }) => {
 
     // useEffect will be used because everytime the page is refreshed we need to add data to the cart array
     useEffect(() => {
+        dispatch({type : "TOTAL_PRICE"})
         localStorage.setItem("sumitCart", JSON.stringify(state.cart))
     }, [state.cart])
 

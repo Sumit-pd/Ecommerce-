@@ -66,7 +66,7 @@ const cartReducer = (state, action) => {
         let newData = state.cart.map(curElem => {
             if (curElem.id === action.payload) {
                 let curAmount = curElem.amount + 1;
-                if(curAmount >= curElem.max ){
+                if (curAmount >= curElem.max) {
                     curAmount = curElem.max
                 }
                 return {
@@ -74,37 +74,50 @@ const cartReducer = (state, action) => {
                     amount: curAmount
                 }
             }
-            else{
+            else {
                 return curElem
             }
         })
         {
             return {
-                ...state , 
-                cart : newData
+                ...state,
+                cart: newData
             }
         }
 
     }
     if (action.type === "DECREASE") {
-        let newData = state.cart.map((curElem) =>{
-            if(curElem.id === action.payload ){
-                let newAmount = curElem.amount - 1 ;
-                if(newAmount < 1){
-                    newAmount = 1 ;
+        let newData = state.cart.map((curElem) => {
+            if (curElem.id === action.payload) {
+                let newAmount = curElem.amount - 1;
+                if (newAmount < 1) {
+                    newAmount = 1;
                 }
                 return {
-                    ...curElem ,
-                    amount : newAmount
+                    ...curElem,
+                    amount: newAmount
                 }
             }
-            else{
-                return curElem ;
+            else {
+                return curElem;
             }
         })
         return {
-            ...state ,
-            cart : newData
+            ...state,
+            cart: newData
+        }
+    }
+
+
+    if (action.type === "TOTAL_PRICE") {
+        let totalPrice = state.cart.reduce((accumulator, curElem) => {
+            let { price, amount } = curElem;
+            accumulator = accumulator + (price * amount);
+            return accumulator;
+        }, 0);
+        return {
+            ...state,
+            total_amount: totalPrice
         }
     }
 
