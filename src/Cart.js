@@ -10,7 +10,7 @@ const Cart = () => {
   const { cart, clearCart, total_amount, shipping_fee } = useCartContext();
   const { isAuthenticated, user } = useAuth0();
 
-  console.log(cart)
+  // console.log(cart)
   if (cart.length === 0) {
     return (
       <EmptyDiv>
