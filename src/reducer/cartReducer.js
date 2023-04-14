@@ -50,6 +50,7 @@ const cartReducer = (state, action) => {
             return curElem.id !== id;
         })
         // console.log(id)
+        // eslint-disable-next-line
         return {
             ...state,
             cart: newArray
@@ -126,3 +127,5 @@ const cartReducer = (state, action) => {
 };
 
 export default cartReducer;
+
+
