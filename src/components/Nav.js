@@ -8,7 +8,7 @@ import { Button } from "../styles/Button";
 
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated , user } = useAuth0();
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -177,8 +177,9 @@ const Nav = () => {
               onClick={() => setMenuIcon(false)}>
               Contact
             </NavLink>
+            {/* {isAuthenticated && <p>{user.name} </p>} */}
           </li>
-          {
+          {/* {
             isAuthenticated  ?  (<li>
               <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                 Log Out
@@ -186,7 +187,7 @@ const Nav = () => {
             </li>) : (<li>
               <Button onClick={() => loginWithRedirect()}>Log In</Button>
             </li>) 
-          }
+          } */}
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
